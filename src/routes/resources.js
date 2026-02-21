@@ -1,0 +1,34 @@
+const express = require('express');
+const router = express.Router();
+const db = require('../db');
+
+/* GET/api/resources */
+router.get('/', async (req, res) => {
+  try {
+    const [rows] = await db.query('SELECT * FROM resources');
+    res.status(200).json(rows);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch resources' });
+  }
+});
+
+/* POST/api/resources */
+router.post('/', async (req, res) => {
+  const { resource_name, resource_type, location, max_capacity } = req.body;
+
+  try {
+    const [result] = await db.query(
+      'INSERT INTO resources (resource_name, resource_type, location, max_capacity) VALUES (?, ?, ?, ?)',
+      [resource_name, resource_type, location, max_capacity]
+    );
+
+    res.status(201).json({
+      message: 'Resource created',
+      resource_id: result.insertId
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to create resource' });
+  }
+});
+
+module.exports = router;
