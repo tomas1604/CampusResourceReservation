@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
-/* GET/api/resources */
+/* GET/api/resources*/
 router.get('/', async (req, res) => {
   try {
     const [rows] = await db.query('SELECT * FROM resources');
@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-/* POST/api/resources */
+/* POST/api/resources*/
 router.post('/', async (req, res) => {
   const { resource_name, resource_type, location, max_capacity } = req.body;
 
