@@ -1,19 +1,20 @@
+const validate = require('../middleware/validateRequest');
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
 /* GET/api/resources*/
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   try {
     const [rows] = await db.query('SELECT * FROM resources');
     res.status(200).json(rows);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch resources' });
+      next(error);
   }
 });
 
 /* POST/api/resources*/
-router.post('/', async (req, res) => {
+router.post('/', validate(['resource_name', 'resource_type']), async (req, res, next) => {
   const { resource_name, resource_type, location, max_capacity } = req.body;
 
   try {
@@ -27,7 +28,7 @@ router.post('/', async (req, res) => {
       resource_id: result.insertId
     });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to create resource' });
+      next(error);  
   }
 });
 
