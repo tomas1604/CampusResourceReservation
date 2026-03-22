@@ -14,6 +14,7 @@ router.get('/', async (req, res, next) => {
     next(error);
   }
 });
+
 /* POST/api/reservations */
 router.post('/', auth, validate(['user_id', 'resource_id', 'start_time', 'end_time']), async (req, res, next) => {  
   const { user_id, resource_id, start_time, end_time, purpose } = req.body;
