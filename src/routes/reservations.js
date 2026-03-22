@@ -2,6 +2,8 @@ const validate = require('../middleware/validateRequest');
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
+const auth = require('../middleware/authMiddleware');
+const requireRole = require('../middleware/roleMiddleware');
 
 /* GET/api/reservations */
 router.get('/', async (req, res, next) => {
@@ -14,7 +16,7 @@ router.get('/', async (req, res, next) => {
 });
 
 /* POST/api/reservations */
-router.post('/', validate(['user_id', 'resource_id', 'start_time', 'end_time']), async (req, res, next) => {  
+router.post('/', auth, validate(['user_id', 'resource_id', 'start_time', 'end_time']), async (req, res, next) => {  
   const { user_id, resource_id, start_time, end_time, purpose } = req.body;
 
   try {
@@ -25,7 +27,7 @@ router.post('/', validate(['user_id', 'resource_id', 'start_time', 'end_time']),
     }
 
     const [resource] = await db.query(
-      'SELECT id FROM resources WHERE id = ?',
+      'SELECT resource_id FROM resources WHERE resource_id = ?',
       [resource_id]
     );
 

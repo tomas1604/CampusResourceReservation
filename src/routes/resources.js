@@ -2,6 +2,8 @@ const validate = require('../middleware/validateRequest');
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
+const auth = require('../middleware/authMiddleware');
+const requireRole = require('../middleware/roleMiddleware');
 
 /* GET/api/resources*/
 router.get('/', async (req, res, next) => {
@@ -14,7 +16,7 @@ router.get('/', async (req, res, next) => {
 });
 
 /* POST/api/resources*/
-router.post('/', validate(['resource_name', 'resource_type']), async (req, res, next) => {
+router.post('/', auth, requireRole('admin'), validate(['resource_name', 'resource_type']), async (req, res, next) => {
   const { resource_name, resource_type, location, max_capacity } = req.body;
 
   try {

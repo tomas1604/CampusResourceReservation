@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const validate = require('../middleware/validateRequest');
 const express = require('express');
 const router = express.Router();
@@ -14,13 +15,15 @@ router.get('/', async (req, res, next) => {
 });
 
 /* POST/api/users */
-router.post('/', validate(['full_name', 'email']), async (req, res, next) => {
-  const { full_name, email, role } = req.body;
+router.post('/', validate(['full_name', 'email', 'password']), async (req, res, next) => {
+  const { full_name, email, password} = req.body;
 
   try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const [result] = await db.query(
-      'INSERT INTO users (full_name, email, role) VALUES (?, ?, ?)',
-      [full_name, email, role || 'student']
+      'INSERT INTO users (full_name, email, password, role) VALUES (?, ?, ?, ?)',
+      [full_name, email, hashedPassword, role]
     );
 
     res.status(201).json({
