@@ -4,7 +4,6 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 const auth = require('../middleware/authMiddleware');
-const requireRole = require('../middleware/roleMiddleware');
 
 /* GET /api/users — only logged-in users */
 router.get('/', auth, async (req, res, next) => {
