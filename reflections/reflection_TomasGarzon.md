@@ -1,0 +1,11 @@
+Working on this backend project helped me understand how a complete server-side application is designed, built, and refined over multiple development stages. At the beginning of the course, my understanding of backend systems was mostly theoretical. Through this project, I learned how the different parts of a backend — routing, middleware, authentication, database interaction, and error handling — work together to form a functional API.
+
+One of the most valuable things I learned was how to structure an Express application in a clean and maintainable way. Early in development, the code felt simple, but as more routes and features were added, organization became very important. Splitting the project into routes, middleware, utilities, and database modules helped me see how real-world backend projects scale and why clean architecture matters.
+
+Working with a shared codebase also taught me the importance of version control and meaningful commits. Using GitHub across multiple milestones showed me how incremental progress, clear commit messages, and regular updates make collaboration easier and prevent confusion. I now better understand how professional teams track changes and maintain project history.
+
+One technical challenge I solved during this project was implementing authentication using JSON Web Tokens and protecting routes with middleware. Learning how tokens are generated, stored, and verified gave me a better understanding of backend security and how APIs control access to protected resources. Another challenge was ensuring consistent error handling across the application using centralized middleware, which made the API more reliable and easier to debug.
+
+If I had more time to continue improving this project, I would focus on adding automated testing and expanding role-based authorization. Automated tests would help guarantee long-term stability, while more advanced authorization rules would make the system closer to a production-level application.
+
+Overall, this project represents my ability to design, implement, refine, and document a complete backend API. It demonstrates my understanding of RESTful design, authentication, database integration, and professional project organization.
